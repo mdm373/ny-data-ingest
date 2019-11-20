@@ -1,0 +1,47 @@
+{
+  "name": "ny-data-ingest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean-temp": "rimraf .temp",
+    "clean-dat": "rimraf .dat",
+    "clean": "run-p clean-*",
+
+    "dev": "tsc -w",
+    "transpile": "tsc",
+    
+    "create-functions": "sh ./scripts/create-fns.sh",
+    "get-data": "sh ./scripts/get-data.sh",
+    
+    "update-fn-create-tables" : "sh ./scripts/update-fn.sh create-tables",
+    "update-fn" : "run-s update-fn-*",
+    
+    "deploy": "run-s clean-temp transpile update-fn",
+    
+    "create-tables": "aws lambda invoke --function-name nyc-data-ingest-create-tables ./.temp/create-tables-response.json",
+    "sync-data": "node ./dist/tsc/sync-data", 
+    "baseline": "run-s clean get-data create-functions deploy create-tables sync-data"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdm373/ny-data-ingest.git"
+  },
+  "author": "mdm373",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdm373/ny-data-ingest/issues"
+  },
+  "homepage": "https://github.com/mdm373/ny-data-ingest#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.575.0"
+  }
+}
