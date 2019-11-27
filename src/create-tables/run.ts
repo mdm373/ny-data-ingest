@@ -1,7 +1,7 @@
-import { loadSecrets } from "../load-secrets"
-import { handler } from ".";
+import {loadSecrets} from '../load-secrets';
+import {handler} from '.';
 
-(async () => {
-    await loadSecrets();
-    console.log(await handler());
+(async (): Promise<void> => {
+  await loadSecrets();
+  console.log(await handler());
 })();
