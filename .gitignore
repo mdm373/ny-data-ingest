@@ -3,3 +3,4 @@ node_modules/
 .dat/
 .DS_Store
 package-lock.json
+.secret.json
