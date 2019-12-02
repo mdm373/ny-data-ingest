@@ -1,11 +1,12 @@
-import {Client, QueryResult} from 'pg';
+import {Client, QueryResult, } from 'pg';
 
 export enum NypdTables {
     complaints = 'nypd_complaints'
 }
 
 export type DbAccess = Readonly<{
-    query: (query: string) => Promise<QueryResult>;
+    query: (query: string, values? : (string|null)[]) => Promise<QueryResult>;
+    queryNamed: (name: string, query: string, values? : (string|null)[]) => Promise<QueryResult>;
     end: () => Promise<void>;
 }>
 
@@ -21,7 +22,8 @@ export const connect = async (): Promise<DbAccess> => {
   await client.connect();
   console.log('done.');
   return {
-    query: (query: string): Promise<QueryResult> => client.query(query),
+    query: (query: string, values?: (string|null)[]): Promise<QueryResult> => client.query(query, values),
+    queryNamed: (name: string, text: string, values?: (string|null)[]): Promise<QueryResult> => client.query({name, text, values}),
     end: (): Promise<void> => client.end(),
   };
 };

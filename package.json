@@ -24,9 +24,11 @@
   },
   "homepage": "https://github.com/mdm373/ny-data-ingest#readme",
   "devDependencies": {
+    "@types/cli-progress": "^1.8.1",
     "@types/fs-extra": "^8.0.1",
     "@types/pg": "^7.11.2",
     "@types/request-promise-native": "^1.0.17",
+    "@types/through2": "^2.0.34",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "eslint": "^6.6.0",
@@ -39,9 +41,14 @@
   },
   "dependencies": {
     "aws-sdk": "^2.575.0",
+    "cli-progress": "^3.4.0",
+    "csv-parser": "^2.3.2",
     "fs-extra": "^8.1.0",
     "pg": "^7.14.0",
+    "progress-bar": "^0.1.1",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.8"
+    "request-promise-native": "^1.0.8",
+    "rxjs": "^6.5.3",
+    "through2": "^3.0.1"
   }
 }
