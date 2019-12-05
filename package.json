@@ -9,9 +9,10 @@
     "lint": "eslint ./src/**/* --fix",
     "transpile": "tsc",
     "get-data": "sh ./scripts/get-data.sh",
-    "baseline": "run-s clean get-data transpile",
     "run-create-tables": "node ./.temp/tsc/create-tables/run",
-    "create-tables": "run-s baseline run-create-tables"
+    "run-populate-data": "node ./.temp/tsc/populate-data/run",
+    "create-tables": "run-s clean transpile run-create-tables",
+    "populate-data": "run-s clean get-data transpile run-populate-data"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "cli-progress": "^3.4.0",
     "csv-parser": "^2.3.2",
     "fs-extra": "^8.1.0",
+    "moment": "^2.24.0",
     "pg": "^7.14.0",
     "progress-bar": "^0.1.1",
     "request": "^2.88.0",

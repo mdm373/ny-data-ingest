@@ -1,9 +1,5 @@
 import {Client, QueryResult, } from 'pg';
 
-export enum NypdTables {
-    complaints = 'nypd_complaints'
-}
-
 export type DbAccess = Readonly<{
     query: (query: string, values? : (string|null)[]) => Promise<QueryResult>;
     queryNamed: (name: string, query: string, values? : (string|null)[]) => Promise<QueryResult>;
