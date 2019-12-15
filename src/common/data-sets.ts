@@ -21,7 +21,7 @@ export const dataSets: ReadonlyArray<DataSetConfig> = [
       primaryKey: 'cmplnt_num'
     },
     {
-      description: 'npyd-sectors',
+      description: 'Nypd Sectors',
       id: '5rqd-h5ci',
       tableName: NyDataTableName.sectors,
       primaryKey: 'sector'

@@ -1,0 +1,1 @@
+SELECT pct, array_agg(the_geom) from nypd_sectors GROUP BY pct

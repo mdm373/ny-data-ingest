@@ -9,5 +9,5 @@ module.exports = {
     new webpack.IgnorePlugin(/^aws-sdk$/),
     new webpack.IgnorePlugin(/^pg-native$/),
   ],
-  target: 'node',
+  target: 'node', 
 };

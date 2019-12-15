@@ -9,10 +9,10 @@
     "lint": "eslint ./src/**/* --fix",
     "transpile": "tsc",
     "get-data": "sh ./scripts/get-data.sh",
-    "run-create-tables": "node ./.temp/tsc/create-tables/run",
-    "run-populate-data": "node ./.temp/tsc/populate-data/run",
-    "create-tables": "run-s clean transpile run-create-tables",
-    "populate-data": "run-s clean get-data transpile run-populate-data"
+    "handler": "node ./.temp/tsc",
+    "create-tables": "run-s clean transpile \"handler create-tables\"",
+    "populate-data": "run-s clean get-data transpile \"handler populate-data\"",
+    "create-precincts": "run-s clean transpile \"handler create-precincts\""
   },
   "repository": {
     "type": "git",
@@ -36,9 +36,7 @@
     "eslint-config-google": "^0.14.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.0",
-    "typescript": "^3.7.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "aws-sdk": "^2.575.0",

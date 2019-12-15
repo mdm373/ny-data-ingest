@@ -2,6 +2,7 @@ import {get} from 'request-promise-native';
 import {Prompt} from '../common/prompt';
 import {connect, DbAccess} from '../common/db-access';
 import { NyDataTableName } from '../common/data-sets';
+import { promptDropTable } from '../common/prompt-drop-table';
 
 export type DataSetConfig  = Readonly<{
   id: string
@@ -27,24 +28,6 @@ type MetaDataResult = Readonly<{
   }>>;
 }>
 
-const handleExistingTable = async (config: DataSetConfig, dbAccess: DbAccess, prompt: Prompt): Promise<Readonly<{
-  tableExists: boolean;
-}>> => {
-  console.log('checking for existing table...');
-  const result = await dbAccess.query(`SELECT FROM information_schema.tables WHERE table_name = '${config.tableName}'`);
-  let tableExists = false;
-  if (result.rowCount != 0) {
-    tableExists = true;
-    console.log('table exists');
-    const shouldDrop = config.tableName.toUpperCase() === (await prompt.question(`type ${config.tableName} to drop: `)).toUpperCase();
-    if (shouldDrop) {
-      await dbAccess.query(`DROP TABLE ${config.tableName}`);
-      console.log('table dropped');
-      tableExists = false;
-    }
-  }
-  return {tableExists};
-};
 
 const makeTable = async (config: DataSetConfig, dbAccess: DbAccess): Promise<void> => {
   console.log('getting schema data...');
@@ -70,7 +53,7 @@ const makeTable = async (config: DataSetConfig, dbAccess: DbAccess): Promise<voi
 export const handleDataSet = async (config: DataSetConfig, dbAccess: DbAccess, prompt: Prompt): Promise<void> => {
   console.log(`processing ${config.description}`);
   dbAccess = await connect();
-  const {tableExists} = await handleExistingTable(config, dbAccess, prompt);
+  const {tableExists} = await promptDropTable(dbAccess, prompt, config.tableName);
   if (!tableExists) {
     await makeTable(config, dbAccess);
   }
