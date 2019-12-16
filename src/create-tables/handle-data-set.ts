@@ -45,7 +45,7 @@ const makeTable = async (config: DataSetConfig, dbAccess: DbAccess): Promise<voi
   const makeTableQuery = `CREATE TABLE ${config.tableName} (${colSchema}${primary});`;
 
   console.log('running create table query from schema', makeTableQuery);
-  const result = await dbAccess.query(makeTableQuery);
+  const result = await dbAccess.query<any>(makeTableQuery);
   console.log('result', JSON.stringify(result));
 };
 

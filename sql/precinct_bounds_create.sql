@@ -1,0 +1,1 @@
+CREATE TABLE nypd_precinct_bounds (id NUMERIC, precinct TEXT, bounds TEXT, PRIMARY KEY (id))
