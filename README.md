@@ -11,11 +11,13 @@
 * aws-cli (authenticated)
 * curl / sh terminal
 
-# Install
+## Install
 
 `npm install`
 
-# Config
+Either run `sql/install_postgris.sql` on postgres RDS instance or install postgis on postgres backend
+
+## Config
 
 fields must be populated either by json key value pair `./.secret.json` or env variable
 * NYC_DATA_DB_HOST: hostname of postgre instance running on port 5432.
