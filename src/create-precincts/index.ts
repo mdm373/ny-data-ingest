@@ -20,6 +20,11 @@ const encodeLine = (line: LineString) => {
   }))
 }
 
+const encodePoint = (point: number[]) => {
+  const[ x, y] = point
+  return encode([[y, x]])
+}
+
 export const handler = async (): Promise<void> => {
     const prompt: Prompt = createPrompt();
     let dbAccess: DbAccess | undefined;
@@ -42,11 +47,10 @@ export const handler = async (): Promise<void> => {
       const encodedPrecincts = queryResult.rows.map((row) => {
         const line = JSON.parse(row.bounds) as LineString
         const centroid = JSON.parse(row.centroid) as Point
-        const [centroidY, centroidX] = centroid.coordinates
         return {
           id: row.precinct,
           path: encodeLine(line),
-          centroid: {lat: centroidX, lng: centroidY}
+          centroid: encodePoint(centroid.coordinates)
         }
       })
       console.log(`inserting '${encodedPrecincts.length}' encoded precinct boundries into bounds table`)
@@ -57,7 +61,7 @@ export const handler = async (): Promise<void> => {
         await cachedAccess.queryNamed('insert-precinct', insertQuery, [
           (id++).toString(),
           precinct.id,
-          JSON.stringify(precinct.centroid),
+          precinct.centroid,
           precinct.path
         ])
         return true
