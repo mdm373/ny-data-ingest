@@ -4,12 +4,13 @@ import {connect, DbAccess} from '../common/db-access';
 import { loadQuery } from '../common/load-query';
 import { promptDropTable } from '../common/prompt-drop-table';
 import {encode } from '@mapbox/polyline'
-import { LineString } from 'geojson';
+import { LineString, Point } from 'geojson';
 
 
 type PrecinctBoundyLine = Readonly<{
   precinct: string,
   bounds: string,
+  centroid: string,
 }>
 
 const encodeLine = (line: LineString) => {
@@ -27,10 +28,11 @@ export const handler = async (): Promise<void> => {
       dbAccess = await connect();
       const cachedAccess = dbAccess
       if(!(await promptDropTable(dbAccess, prompt, 'nypd_precinct_bounds')).tableExists) {
-        dbAccess.query<any>(await loadQuery('precinct_bounds_create.sql'))
+        await dbAccess.query<any>(await loadQuery('precinct_bounds_create.sql'))
       }
-      console.log("building precinct boundry unions...")
+      console.log("clearing cached precinct boundry unions...")
       await dbAccess.query<any>(await loadQuery('precinct_temp_union_drop.sql'))
+      console.log("building precinct boundry unions...")
       await dbAccess.query<any>(await loadQuery('precinct_temp_union_create.sql'))
       console.log("selecting precinct json bounds...")
       const queryResult = await dbAccess.query<PrecinctBoundyLine>(
@@ -39,9 +41,12 @@ export const handler = async (): Promise<void> => {
       console.log('encoding paths...')
       const encodedPrecincts = queryResult.rows.map((row) => {
         const line = JSON.parse(row.bounds) as LineString
+        const centroid = JSON.parse(row.centroid) as Point
+        const [centroidY, centroidX] = centroid.coordinates
         return {
           id: row.precinct,
-          path: encodeLine(line)
+          path: encodeLine(line),
+          centroid: {lat: centroidX, lng: centroidY}
         }
       })
       console.log(`inserting '${encodedPrecincts.length}' encoded precinct boundries into bounds table`)
@@ -49,7 +54,12 @@ export const handler = async (): Promise<void> => {
       let id = 0;
       await encodedPrecincts.reduce(async (precicntPromise, precinct) => {
         await precicntPromise
-        await cachedAccess.queryNamed('insert-precinct', insertQuery, [(id++).toString(), precinct.id, precinct.path])
+        await cachedAccess.queryNamed('insert-precinct', insertQuery, [
+          (id++).toString(),
+          precinct.id,
+          JSON.stringify(precinct.centroid),
+          precinct.path
+        ])
         return true
       }, Promise.resolve(true))
     } catch (e) {

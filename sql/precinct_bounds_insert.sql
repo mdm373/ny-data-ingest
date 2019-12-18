@@ -1,1 +1,1 @@
-INSERT INTO nypd_precinct_bounds (id, precinct, bounds) VALUES ($1, $2, $3)
+INSERT INTO nypd_precinct_bounds (id, precinct, centroid, bounds) VALUES ($1, $2, $3, $4)
