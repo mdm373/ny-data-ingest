@@ -37,5 +37,15 @@
                 {"from": "borocd", "to": "boro_cd"}
             ]
         }]
+    },
+    {
+        "description": "School Districts",
+        "tableName": "school_districts",
+        "primaryKey": "school_dist",
+        "sources" : [{
+            "fileName": "school-districts",
+            "id": "cuae-wd7h",
+            "colNameCorrections": [{"from": "schooldist", "to": "school_dist"}]
+        }]
     }
   ]

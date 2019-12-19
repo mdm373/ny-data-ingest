@@ -15,4 +15,11 @@
     "preQueries": [],
     "tableName": "community_district_bounds",
     "simplification": 0.0001
+},{
+    "boundKey": "school_dist",
+    "boundSource": "school_districts",
+    "geomKey": "the_geom",
+    "preQueries": [],
+    "tableName": "school_district_bounds",
+    "simplification": 0.0001
 }]
