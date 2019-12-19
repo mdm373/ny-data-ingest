@@ -1,0 +1,18 @@
+[{
+    "preQueries": [
+        "precinct_temp_union_drop.sql",
+        "precinct_temp_union_create.sql"
+    ],
+    "boundKey": "precinct",
+    "boundSource": "t_unioned",
+    "tableName": "nypd_precinct_bounds",
+    "geomKey": "union_geom",
+    "simplification": 0.0005
+},{
+    "boundKey": "boro_cd",
+    "boundSource": "community_districts",
+    "geomKey": "the_geom",
+    "preQueries": [],
+    "tableName": "community_district_bounds",
+    "simplification": 0.0001
+}]

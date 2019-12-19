@@ -1,0 +1,41 @@
+[
+    {
+        "description": "Nypd Complaints",
+        "tableName": "nypd_complaints",
+        "primaryKey": "cmplnt_num",
+        "sources" : [{
+            "id": "qgea-i56i",
+            "fileName" : "nypd-complaint-historical",
+            "colNameCorrections" : [] 
+        },{
+            "id": "5uac-w243",
+            "fileName" : "nypd-complaint-ytd",
+            "colNameCorrections" : [] 
+        }]
+    },
+    {
+        "description": "Nypd Sectors",
+        "tableName": "nypd_sectors",
+        "primaryKey": "sector",
+        "sources" : [{
+            "id": "5rqd-h5ci",
+            "fileName": "nypd-sectors",
+            "colNameCorrections": [
+                {"from": "sctrfloat", "to": "sctr_float"},
+                {"from": "sq_milenew", "to": "sq_mile_new"}
+            ]
+        }]
+    },
+    {
+        "description": "Community Districts",
+        "tableName": "community_districts",
+        "primaryKey": "boro_cd",
+        "sources" : [{
+            "fileName": "community-districts",
+            "id": "jp9i-3b7y",
+            "colNameCorrections": [
+                {"from": "borocd", "to": "boro_cd"}
+            ]
+        }]
+    }
+  ]

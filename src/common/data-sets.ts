@@ -1,36 +1,22 @@
-export enum NyDataTableName {
-    complaints = 'nypd_complaints',
-    sectors = 'nypd_sectors',
-    communityDistricts = 'community_disctricts',
+import { readFile } from "fs-extra"
+
+
+export const getDataSetConfigs = async () => {
+  return JSON.parse(await readFile("./configs/data-set-config.json", "UTF-8")) as readonly DataSetConfig[]
 }
-export const allNyDataTableNames: ReadonlyArray<NyDataTableName> = [
-    NyDataTableName.complaints, NyDataTableName.sectors
-]
 
+export type ColCorrection = Readonly<{
+  from: string,
+  to: string,
+}>
+export type DataSource = Readonly<{
+  id: string,
+  fileName: string,
+  colNameCorrections: readonly ColCorrection[]
+}>
 export type DataSetConfig  = Readonly<{
-    id: string
-    description: string,
-    tableName: NyDataTableName,
-    primaryKey: string,
-  }>
-
-export const dataSets: ReadonlyArray<DataSetConfig> = [
-    {
-      description: 'Nypd Complaints',
-      id: 'qgea-i56i',
-      tableName: NyDataTableName.complaints,
-      primaryKey: 'cmplnt_num'
-    },
-    {
-      description: 'Nypd Sectors',
-      id: '5rqd-h5ci',
-      tableName: NyDataTableName.sectors,
-      primaryKey: 'sector'
-    },
-    {
-      description: 'Community Districts',
-      id: 'jp9i-3b7y',
-      tableName: NyDataTableName.communityDistricts,
-      primaryKey: 'boro_cd'
-    }
-  ]
+  description: string,
+  tableName: string,
+  primaryKey: string,
+  sources: readonly DataSource[]
+}>

@@ -31,7 +31,7 @@ export type BoundryTableConfig = Readonly<{
   boundKey: string,
   boundSource: string,
   geomKey: string,
-  tolerance: number
+  simplification: number
 }>
 export const createBoundryTable = async (config: BoundryTableConfig): Promise<void> => {
     const prompt: Prompt = createPrompt();
@@ -55,7 +55,7 @@ export const createBoundryTable = async (config: BoundryTableConfig): Promise<vo
           boundSource: config.boundSource,
           boundKey: config.boundKey,
           geomKey: config.geomKey,
-          tolerance: config.tolerance.toString()
+          tolerance: config.simplification.toString()
         })
       )
       console.log('encoding bounds paths...')

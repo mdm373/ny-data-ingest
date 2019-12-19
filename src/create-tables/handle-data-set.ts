@@ -1,13 +1,12 @@
 import {get} from 'request-promise-native';
 import {Prompt} from '../common/prompt';
 import {connect, DbAccess} from '../common/db-access';
-import { NyDataTableName } from '../common/data-sets';
 import { promptDropTable } from '../common/prompt-drop-table';
 
 export type DataSetConfig  = Readonly<{
   id: string
   description: string,
-  tableName: NyDataTableName,
+  tableName: string,
   primaryKey: string,
 }>
 

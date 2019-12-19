@@ -9,7 +9,7 @@ import {lowerLineKeys} from './lower-keys'
 import {DataSetConfig} from '../common/data-sets'
 type UserDefinedConfig = Readonly<{
     filename: string;
-    dataSet: DataSetConfig;
+    tableName: string;
 }>
 
 type DefaultableConfig = Partial<Readonly<{
@@ -29,7 +29,7 @@ const defaultConfig: Required<DefaultableConfig> = {
 }
 
 export const ingestCsv = async (config: IngestConfig): Promise<void> => {
-    if(process.env['SKIP_' + (config.dataSet.tableName).toUpperCase()]) {
+    if(process.env['SKIP_' + (config.tableName).toUpperCase()]) {
         console.log('skipped.')
         return
     }
@@ -69,7 +69,7 @@ export const ingestCsv = async (config: IngestConfig): Promise<void> => {
                         const queryValues = lines.map((_, lineIndex) => 
                             `(${keys.map((_, index) =>`$${ (keyCount*lineIndex) + index + 1}`).join(', ')})`
                         ).join(',')
-                        query = `INSERT INTO ${config.dataSet.tableName} (${queryKeys}) VALUES ${queryValues} ON CONFLICT DO NOTHING`
+                        query = `INSERT INTO ${config.tableName} (${queryKeys}) VALUES ${queryValues} ON CONFLICT DO NOTHING`
                     }
                     const values = lines.reduce((agg, line) => Object.values(line.line).concat(agg), [] as any[])
                     return from(client.queryNamed(`insert-row-${lines.length}`, query, values)).pipe(
