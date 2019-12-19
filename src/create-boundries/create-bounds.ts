@@ -27,7 +27,6 @@ const encodePoint = (point: number[]) => {
 
 export type BoundryTableConfig = Readonly<{
   tableName: string,
-  preQueries: readonly string[],
   boundKey: string,
   boundSource: string,
   geomKey: string,
@@ -43,12 +42,6 @@ export const createBoundryTable = async (config: BoundryTableConfig): Promise<vo
       if(!(await promptDropTable(dbAccess, prompt, config.tableName)).tableExists) {
         await dbAccess.queryNamed<any>('bounds-create', await loadQuery(`bounds_create.sql`, {tableName: config.tableName}))
       }
-      await config.preQueries.reduce(async(agg, current) => {
-        await agg
-        console.log(`running pre-query: ${current}`)
-        await cachedAccess.query<any>(await loadQuery(current))
-        return true
-      }, Promise.resolve(true))
       console.log("selecting json bounds...")
       const queryResult = await dbAccess.query<BoundsRow>(
         await loadQuery('bounds_query.sql', {

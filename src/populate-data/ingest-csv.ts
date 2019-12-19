@@ -29,7 +29,7 @@ const defaultConfig: Required<DefaultableConfig> = {
 }
 
 export const ingestCsv = async (config: IngestConfig): Promise<void> => {
-    if(process.env['SKIP_' + (config.tableName).toUpperCase()]) {
+    if(process.env['SKIP_' + (config.tableName).toUpperCase()] === JSON.stringify(true)) {
         console.log('skipped.')
         return
     }

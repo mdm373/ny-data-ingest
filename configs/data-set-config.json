@@ -27,6 +27,16 @@
         }]
     },
     {
+        "description": "Nypd Precincts",
+        "tableName": "nypd_precincts",
+        "primaryKey": "precinct",
+        "sources" : [{
+            "id": "kmub-vria",
+            "fileName": "nypd-precincts",
+            "colNameCorrections": []
+        }]
+    },
+    {
         "description": "Community Districts",
         "tableName": "community_districts",
         "primaryKey": "boro_cd",
