@@ -2,6 +2,8 @@
 
 > Populating Historical / Existing Data into the NYC Data Set
 
+See [web](https://github.com/mdm373/ny-data-web) and [api](https://github.com/mdm373/ny-data-api) for the front and back ends respectivly that make this data actually do something...
+
 ## Sources
  https://opendata.cityofnewyork.us/
  
@@ -28,7 +30,7 @@ fields must be populated either by json key value pair `./.secret.json` or env v
 * tasks
   * `npm run create-tables` - builds required tables from open data schema
   * `npm run populate-data` - inserts data into tables (historic and ytd)
-  * `npm run create-precincts` - builds precinct table as a merge of nypd_sectors by precinct
+  * `npm run create-boundries` - builds boundry sets from sources with matching `./configs/geom-config.json` entry
 * development
   * `npm run dev` - transpile source in watch mode
   * `npm run handler {{task}}` - seperatly, any task above to run from watched source
