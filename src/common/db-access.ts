@@ -2,7 +2,7 @@ import {Client, QueryResult, } from 'pg';
 
 export type DbAccess = Readonly<{
     query: <T>(query: string, values? : (string|null)[]) => Promise<QueryResult<T>>;
-    queryNamed: (name: string, query: string, values? : (string|null)[]) => Promise<QueryResult>;
+    queryNamed: <T>(name: string, query: string, values? : (string|null)[]) => Promise<QueryResult<T>>;
     end: () => Promise<void>;
 }>
 

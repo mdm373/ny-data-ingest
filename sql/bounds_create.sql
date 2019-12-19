@@ -1,0 +1,1 @@
+CREATE TABLE {{tableName}} (id NUMERIC, bound_id TEXT, centroid TEXT, bounds TEXT, PRIMARY KEY (id))

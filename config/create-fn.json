@@ -1,8 +1,0 @@
-{
-    "FunctionName": "",
-    "Runtime": "nodejs12.x",
-    "Role": "",
-    "Handler": "index.handler",
-    "Description": "",
-    "Publish": true
-}

@@ -25,6 +25,13 @@ export const handler = async () => {
                 {from: 'sctrfloat', to: 'sctr_float'},
                 {from: 'sq_milenew', to: 'sq_mile_new'},
             ],
+        },
+        {
+            filename: './.dat/community-districts.csv',
+            dataSet: getDataSetConfig(NyDataTableName.communityDistricts),
+            colNameCorrections: [
+                {from: 'borocd', to: 'boro_cd'},
+            ],
         }
     ]
     conifgs.reduce(async (agg, current) => {

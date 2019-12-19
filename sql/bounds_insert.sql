@@ -1,0 +1,1 @@
+INSERT INTO {{tableName}} (id, bound_id, centroid, bounds) VALUES ($1, $2, $3, $4)

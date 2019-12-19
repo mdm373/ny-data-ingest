@@ -1,6 +1,7 @@
 export enum NyDataTableName {
     complaints = 'nypd_complaints',
     sectors = 'nypd_sectors',
+    communityDistricts = 'community_disctricts',
 }
 export const allNyDataTableNames: ReadonlyArray<NyDataTableName> = [
     NyDataTableName.complaints, NyDataTableName.sectors
@@ -25,5 +26,11 @@ export const dataSets: ReadonlyArray<DataSetConfig> = [
       id: '5rqd-h5ci',
       tableName: NyDataTableName.sectors,
       primaryKey: 'sector'
+    },
+    {
+      description: 'Community Districts',
+      id: 'jp9i-3b7y',
+      tableName: NyDataTableName.communityDistricts,
+      primaryKey: 'boro_cd'
     }
   ]

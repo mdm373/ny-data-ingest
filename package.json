@@ -12,7 +12,7 @@
     "handler": "node ./.temp/tsc",
     "create-tables": "run-s clean transpile \"handler create-tables\"",
     "populate-data": "run-s clean get-data transpile \"handler populate-data\"",
-    "create-precincts": "run-s clean transpile \"handler create-precincts\""
+    "create-boundries": "run-s clean transpile \"handler create-boundries\""
   },
   "repository": {
     "type": "git",
