@@ -1,25 +1,33 @@
 [{
     "boundKey": "sector",
+    "typeName": "nypd-sectors",
+    "displayName" : "NYPD Sectors",
     "boundSource": "nypd_sectors",
     "tableName": "nypd_sector_bounds",
     "geomKey": "the_geom",
-    "simplification": 0.0005
+    "simplification": 0.0002
 },{
     "boundKey": "precinct",
+    "typeName": "nypd-precincts",
+    "displayName" : "NYPD Precincts",
     "boundSource": "nypd_precincts",
     "tableName": "nypd_precinct_bounds",
     "geomKey": "the_geom",
-    "simplification": 0.0005
+    "simplification": 0.0002
 },{
     "boundKey": "boro_cd",
+    "typeName": "community-districts",
+    "displayName" : "Community Districts",
     "boundSource": "community_districts",
     "geomKey": "the_geom",
     "tableName": "community_district_bounds",
-    "simplification": 0.0001
+    "simplification": 0.0002
 },{
     "boundKey": "school_dist",
+    "typeName": "school-districts",
+    "displayName" : "School Districts",
     "boundSource": "school_districts",
     "geomKey": "the_geom",
     "tableName": "school_district_bounds",
-    "simplification": 0.0001
+    "simplification": 0.0002
 }]

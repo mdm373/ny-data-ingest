@@ -1,6 +1,6 @@
 
 import {createPrompt, Prompt} from '../common/prompt';
-import {connect, DbAccess} from '../common/db-access';
+import {connect, DbAccess, boundsTypeTableName} from '../common/db-access';
 import { loadQuery } from '../common/load-query';
 import { promptDropTable } from '../common/prompt-drop-table';
 import {encode } from '@mapbox/polyline'
@@ -27,6 +27,8 @@ const encodePoint = (point: number[]) => {
 
 export type BoundryTableConfig = Readonly<{
   tableName: string,
+  typeName: string,
+  displayName: string,  
   boundKey: string,
   boundSource: string,
   geomKey: string,
@@ -38,6 +40,9 @@ export const createBoundryTable = async (config: BoundryTableConfig): Promise<vo
     try {
       console.log(`create boundy table invoked`);
       dbAccess = await connect();
+      console.log("adding type to bounds type table...")
+      const typeUpdateQuery = await loadQuery('bound_type_insert.sql', {tableName: boundsTypeTableName})
+      await dbAccess.queryNamed("type-insert", typeUpdateQuery, [config.typeName, config.displayName, config.tableName])
       const cachedAccess = dbAccess
       if(!(await promptDropTable(dbAccess, prompt, config.tableName)).tableExists) {
         await dbAccess.queryNamed<any>('bounds-create', await loadQuery(`bounds_create.sql`, {tableName: config.tableName}))

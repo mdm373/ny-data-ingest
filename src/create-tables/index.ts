@@ -1,8 +1,10 @@
 
 import {createPrompt, Prompt} from '../common/prompt';
-import {connect, DbAccess} from '../common/db-access';
+import {connect, DbAccess, boundsTypeTableName} from '../common/db-access';
 import {handleDataSet} from './handle-data-set'
 import { getDataSetConfigs } from '../common/data-sets';
+import { promptDropTable } from '../common/prompt-drop-table';
+import { loadQuery } from '../common/load-query';
 
 export const handler = async (): Promise<void> => {
     const prompt: Prompt = createPrompt();
@@ -10,6 +12,9 @@ export const handler = async (): Promise<void> => {
     try {
       console.log(`create tables invoked`);
       dbAccess = await connect();
+      if(await promptDropTable(dbAccess, prompt, boundsTypeTableName)){
+        await dbAccess.query(await loadQuery('bound_type_table_create.sql', {tableName: boundsTypeTableName}))
+      }
       const cachedAccess = dbAccess
       const dataSets = await getDataSetConfigs()
       await dataSets.reduce(async (agg, current) => {

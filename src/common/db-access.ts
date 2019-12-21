@@ -6,6 +6,8 @@ export type DbAccess = Readonly<{
     end: () => Promise<void>;
 }>
 
+export const boundsTypeTableName= "bounds_types"
+
 export const connect = async (): Promise<DbAccess> => {
   const client = new Client({
     host: process.env.NYC_DATA_DB_HOST,
