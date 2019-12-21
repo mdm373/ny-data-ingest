@@ -12,7 +12,7 @@ export const handler = async (): Promise<void> => {
     try {
       console.log(`create tables invoked`);
       dbAccess = await connect();
-      if(await promptDropTable(dbAccess, prompt, boundsTypeTableName)){
+      if(!(await promptDropTable(dbAccess, prompt, boundsTypeTableName)).tableExists){
         await dbAccess.query(await loadQuery('bound_type_table_create.sql', {tableName: boundsTypeTableName}))
       }
       const cachedAccess = dbAccess

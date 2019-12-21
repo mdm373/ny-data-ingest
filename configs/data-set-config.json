@@ -57,5 +57,15 @@
             "id": "cuae-wd7h",
             "colNameCorrections": [{"from": "schooldist", "to": "school_dist"}]
         }]
+    },
+    {
+        "description": "City Council Districts",
+        "tableName": "city_council_districts",
+        "primaryKey": "coun_dist",
+        "sources" : [{
+            "fileName": "city-council-districts",
+            "id": "ve3w-z72j",
+            "colNameCorrections": [{"from":"coundist", "to": "coun_dist"}]
+        }]
     }
   ]

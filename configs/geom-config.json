@@ -30,4 +30,12 @@
     "geomKey": "the_geom",
     "tableName": "school_district_bounds",
     "simplification": 0.0002
+},{
+    "boundKey": "coun_dist",
+    "typeName": "city-council-districts",
+    "displayName" : "City Council Districts",
+    "boundSource": "city_council_districts",
+    "geomKey": "the_geom",
+    "tableName": "city_council_district_bounds",
+    "simplification": 0.0002
 }]
