@@ -22,8 +22,9 @@ export const handler = async (): Promise<void> => {
         await handleDataSet({
           description: current.description,
           id: current.sources[0].id,
-          primaryKey: current.primaryKey,
-          tableName: current.tableName
+          primaryKey: current.primaryKey || "id",
+          tableName: current.tableName,
+          isIdGenerated: current.isKeyGenerated || false,
         }, cachedAccess, prompt);
         return true;
       }, Promise.resolve(true))

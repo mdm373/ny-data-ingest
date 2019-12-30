@@ -12,11 +12,12 @@ export type ColCorrection = Readonly<{
 export type DataSource = Readonly<{
   id: string,
   fileName: string,
-  colNameCorrections: readonly ColCorrection[]
+  colNameCorrections: readonly ColCorrection[],
 }>
 export type DataSetConfig  = Readonly<{
   description: string,
   tableName: string,
-  primaryKey: string,
+  primaryKey?: string,
+  isKeyGenerated?: boolean,
   sources: readonly DataSource[]
 }>

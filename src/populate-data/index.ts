@@ -27,7 +27,9 @@ export const handler = async () => {
             sourceAgg.push({
                 tableName: configCurrent.tableName,
                 filename: `./.dat/${currentSource.fileName}.csv`,
-                colNameCorrections : currentSource.colNameCorrections
+                colNameCorrections : currentSource.colNameCorrections,
+                isKeyGenerated : configCurrent.isKeyGenerated || false,
+                primaryKey: configCurrent.primaryKey || "id",
             })
             return sourceAgg
         }, [] as IngestConfig[]))

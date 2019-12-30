@@ -6,10 +6,12 @@ import { startIngestProgressBar } from './ingest-progress'
 import moment from 'moment'
 import { mergeTimestamp } from './merge-timestamp'
 import {lowerLineKeys} from './lower-keys'
-import {DataSetConfig} from '../common/data-sets'
+
 type UserDefinedConfig = Readonly<{
     filename: string;
     tableName: string;
+    isKeyGenerated: boolean,
+    primaryKey: string,
 }>
 
 type DefaultableConfig = Partial<Readonly<{
@@ -38,7 +40,7 @@ export const ingestCsv = async (config: IngestConfig): Promise<void> => {
     if(resolvedConfig.flowRate < 1.0) {
         throw new Error('flow rate must be greater than 1.0')
     }
-    console.log(`running ingest of: '${resolvedConfig.filename}:`)
+    console.log(`running ingest of: '${resolvedConfig.filename} (autoId: ${resolvedConfig.isKeyGenerated}):`)
     const start = moment();
 
     const client = await connect()
@@ -49,6 +51,7 @@ export const ingestCsv = async (config: IngestConfig): Promise<void> => {
     let query: string|undefined = undefined
     const stopProgress = await startIngestProgressBar(fileByLine, resolvedConfig.fps)
     try {
+        var generatedIndex = 0
         await new Promise((complete, reject) => {
             fileByLine.obs.pipe(
                 map(lowerLineKeys),
@@ -56,9 +59,18 @@ export const ingestCsv = async (config: IngestConfig): Promise<void> => {
                 bufferCount(bufferSize),
                 filter((lines) => lines.length !== 0),
                 mergeMap((lines) => {
+                    if(resolvedConfig.isKeyGenerated) {
+                        lines = lines.map( (line) => {
+                            return {...line, line: { ...line.line, ...{[resolvedConfig.primaryKey] : (generatedIndex++).toString()} } }
+                        })
+                    }
                     if(!query || lines.length !== bufferSize) {
                         const exampleLine = lines[0]
                         const keys = Object.keys(exampleLine.line).map((key) => {
+                            key = key.replace(/ /g, '_')
+                            if(/^\d/.test(key)) {
+                                key = '_'.concat(key)
+                            }
                             const foundCorrection = resolvedConfig.colNameCorrections.find(
                                 (correction) => correction.from === key
                             )

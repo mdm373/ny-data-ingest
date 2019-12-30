@@ -67,5 +67,16 @@
             "id": "ve3w-z72j",
             "colNameCorrections": [{"from":"coundist", "to": "coun_dist"}]
         }]
+    },
+    {
+        "description": "Population By Community Districts",
+        "tableName": "community_district_populations",
+        "primaryKey": "id",
+        "isKeyGenerated" : true,
+        "sources" : [{
+            "fileName" : "community-districts-populations",
+            "id" : "xi7c-iiu2",
+            "colNameCorrections" : [{"from": "cd number", "to": "cd_number"}]
+        }]
     }
   ]

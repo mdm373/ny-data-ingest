@@ -8,6 +8,7 @@ export type DataSetConfig  = Readonly<{
   description: string,
   tableName: string,
   primaryKey: string,
+  isIdGenerated: boolean
 }>
 
 const dataType: { readonly [key: string]: string } = {
@@ -38,7 +39,7 @@ const makeTable = async (config: DataSetConfig, dbAccess: DbAccess): Promise<voi
       .filter( (col) => ! col.fieldName.endsWith('_tm'))
       .reduce((agg, current) => {
         return `${agg} ${current.fieldName} ${dataType[current.dataTypeName]},`;
-      }, '');
+      }, '').concat(config.isIdGenerated ? config.primaryKey + " numeric," : "");
 
   const primary = ` PRIMARY KEY (${config.primaryKey})`;
   const makeTableQuery = `CREATE TABLE ${config.tableName} (${colSchema}${primary});`;
