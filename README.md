@@ -31,6 +31,7 @@ fields must be populated either by json key value pair `./.secret.json` or env v
   * `npm run create-tables` - builds required tables from open data schema
   * `npm run populate-data` - inserts data into tables (historic and ytd)
   * `npm run create-boundries` - builds boundry sets from sources with matching `./configs/geom-config.json` entry
+  * `npm run create-series` - builds time series from sources with matching `./configs/time-series-config.json` entry
 * development
   * `npm run dev` - transpile source in watch mode
   * `npm run handler {{task}}` - seperatly, any task above to run from watched source
