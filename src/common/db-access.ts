@@ -7,6 +7,7 @@ export type DbAccess = Readonly<{
 }>
 
 export const boundsTypeTableName= "bounds_types"
+export const seriesTypeTableName = "series_types"
 
 export const connect = async (): Promise<DbAccess> => {
   const client = new Client({

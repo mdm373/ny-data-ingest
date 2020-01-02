@@ -1,6 +1,6 @@
 
 import {createPrompt, Prompt} from '../common/prompt';
-import {connect, DbAccess, boundsTypeTableName} from '../common/db-access';
+import {connect, DbAccess, boundsTypeTableName, seriesTypeTableName} from '../common/db-access';
 import {handleDataSet} from './handle-data-set'
 import { getDataSetConfigs } from '../common/data-sets';
 import { promptDropTable } from '../common/prompt-drop-table';
@@ -14,6 +14,9 @@ export const handler = async (): Promise<void> => {
       dbAccess = await connect();
       if(!(await promptDropTable(dbAccess, prompt, boundsTypeTableName)).tableExists){
         await dbAccess.query(await loadQuery('bound_type_table_create.sql', {tableName: boundsTypeTableName}))
+      }
+      if(!(await promptDropTable(dbAccess, prompt, seriesTypeTableName)).tableExists){
+        await dbAccess.query(await loadQuery('series_type_table_create.sql', {tableName: seriesTypeTableName}))
       }
       const cachedAccess = dbAccess
       const dataSets = await getDataSetConfigs()

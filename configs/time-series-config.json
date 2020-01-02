@@ -1,0 +1,7 @@
+[{
+    "seriesName": "cd-pop-interpol",
+    "displayName": "Community District Population",
+    "tableName": "community_district_population_interpolation",
+    "boundType": "community-districts",
+    "valueName": "population"
+}]

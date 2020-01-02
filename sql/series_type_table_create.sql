@@ -1,0 +1,1 @@
+CREATE TABLE {{tableName}} (type_name text, display_name text, table_name text, bound_type text, value_name text, PRIMARY KEY (type_name))

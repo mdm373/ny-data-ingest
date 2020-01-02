@@ -1,0 +1,2 @@
+INSERT INTO {{tableName}} (type_name, display_name, table_name, bound_type, value_name) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (type_name)
+    DO UPDATE SET display_name = excluded.display_name, table_name = excluded.table_name, bound_type=excluded.bound_type, value_name=excluded.value_name

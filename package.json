@@ -11,7 +11,8 @@
     "handler": "node ./.temp/tsc",
     "create-tables": "run-s clean transpile \"handler create-tables\"",
     "populate-data": "run-s clean transpile \"handler populate-data\"",
-    "create-boundries": "run-s clean transpile \"handler create-boundries\""
+    "create-boundries": "run-s clean transpile \"handler create-boundries\"",
+    "create-series": "run-s clean transpile \"handler create-series\""
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "aws-sdk": "^2.575.0",
     "cli-progress": "^3.4.0",
     "csv-parser": "^2.3.2",
+    "everpolate": "0.0.3",
     "fs-extra": "^8.1.0",
     "geojson": "^0.5.0",
     "moment": "^2.24.0",
