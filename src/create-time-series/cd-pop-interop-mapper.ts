@@ -69,8 +69,7 @@ export const map: Mapper = async (db: DbAccess) => {
         agg = agg.concat(current.polyData.map((polyData, polyIndex): InteropRow => ({
             id: index++,
             bound_id: current.cdId,
-            start_time: moment.unix(allDays10YearsExterpolated[polyIndex]).utc().format(),
-            end_time: moment.unix(allDays10YearsExterpolated[polyIndex]).utc().add(1, "days").format(),
+            timestamp: moment.unix(allDays10YearsExterpolated[polyIndex]).utc().format(),
             value: Number.parseInt(polyData),
         })))
         bar.update(aggIndex*current.polyData.length)

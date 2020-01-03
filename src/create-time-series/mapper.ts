@@ -3,8 +3,7 @@ import { DbAccess } from "../common/db-access"
 export type InteropRow = Readonly<{
     id: number,
     bound_id: string,
-    start_time: string
-    end_time: string,
+    timestamp: string
     value: number
 }>
 
