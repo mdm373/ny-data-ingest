@@ -67,6 +67,8 @@ const handleConfig = async(config: TimeSeriesConfig, db: DbAccess, prompt: Promp
     await db.query(await loadQuery('series_reduction_insert.sql', {toTable: `${tableName}${suffixes[1]}`, fromTable: `${tableName}${suffixes[0]}`, granularity: 'month'}))
     console.log('populating year...')
     await db.query(await loadQuery('series_reduction_insert.sql', {toTable: `${tableName}${suffixes[2]}`, fromTable: `${tableName}${suffixes[1]}`, granularity: 'year'}))
+    console.log('updating time bounds...')
+    await db.query(await loadQuery('series_min_max_select.sql', {tableName: `${tableName}${suffixes[0]}`, typeName: config.seriesName}))
 }
 
 
